@@ -55,8 +55,19 @@ body {
     border-radius: 8px;
     position: relative;
     overflow: hidden;
+    margin-bottom: 40px; /* Added space between game container and footer */
 }
 
+#water-can {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: auto;
+    cursor: pointer;
+    pointer-events: none; /* Prevent accidental clicks */
+}
 
 #start-btn {
     padding: 8px 16px;
@@ -72,26 +83,47 @@ body {
     background-color: #45a049;
 }
 
+#reset-btn {
+    padding: 8px 16px;
+    background-color: #f44336; /* Red color for reset */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px; /* Add spacing between buttons */
+}
+
+#reset-btn:hover {
+    background-color: #d32f2f;
+}
+
 .score {
     flex: 0 1 auto;  /* Don't grow, can shrink, auto basis */
     font-size: 24px;
     font-weight: bold;
 }
 
+.timer {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
 .water-drop {
     position: absolute;
     width: 40px;  /* increased from 30px */
     height: 40px; /* increased from 30px */
-    background-color: #0099ff;
-    border-radius: 50% 50% 50% 50%;
     animation: dropFall linear forwards;
     transform-origin: center;
     cursor: pointer;
     pointer-events: auto;
+    background-color: #0099ff; /* Blue for good drops */
+    border-radius: 50%; /* Make it circular */
 }
 
 .bad-drop {
-    background-color: #ff4444;
+    background-color: red; /* Red for bad drops */
 }
 
 .game-title {
@@ -107,6 +139,24 @@ body {
     font-size: 18px;
     margin-bottom: 20px;
     text-align: center;
+}
+
+.footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #2E9DF7; /* Charity Water Blue */
+    color: white;
+    font-size: 14px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+#cw-logo {
+    display: block;
+    margin: 20px auto; /* Center the logo and add spacing */
+    width: 150px;      /* Adjust the size of the logo */
+    height: auto;
 }
 
 @keyframes dropFall {
@@ -125,5 +175,74 @@ body {
     
     #game-container {
         height: 70vh;
+    }
+}
+
+@media (max-width: 850px) {
+    .game-wrapper {
+        gap: 15px; /* Reduce gap for smaller screens */
+    }
+
+    .score-panel {
+        width: 90%; /* Adjust width for smaller screens */
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center;
+        gap: 10px; /* Add spacing between stacked elements */
+    }
+
+    #game-container {
+        width: 90%; /* Adjust width for smaller screens */
+        height: 60vh; /* Adjust height for smaller screens */
+    }
+
+    #cw-logo {
+        width: 100px; /* Reduce logo size for smaller screens */
+    }
+
+    .game-title {
+        font-size: 36px; /* Reduce title font size */
+    }
+
+    .game-tagline {
+        font-size: 16px; /* Reduce tagline font size */
+    }
+
+    .score, .timer {
+        font-size: 20px; /* Adjust font size for score and timer */
+    }
+
+    #start-btn, #reset-btn {
+        font-size: 14px; /* Adjust button font size */
+        padding: 6px 12px; /* Adjust button padding */
+    }
+}
+
+@media (max-width: 480px) {
+    .game-wrapper {
+        gap: 10px; /* Further reduce gap for very small screens */
+    }
+
+    .score-panel {
+        gap: 8px; /* Reduce spacing between stacked elements */
+    }
+
+    #game-container {
+        height: 50vh; /* Further reduce height for very small screens */
+    }
+
+    .game-title {
+        font-size: 28px; /* Further reduce title font size */
+    }
+
+    .game-tagline {
+        font-size: 14px; /* Further reduce tagline font size */
+    }
+
+    .score, .timer {
+        font-size: 18px; /* Further adjust font size for score and timer */
+    }
+
+    #cw-logo {
+        width: 80px; /* Further reduce logo size */
     }
 }
