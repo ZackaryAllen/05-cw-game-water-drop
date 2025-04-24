@@ -25,7 +25,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f0f0f0;
+    background-color: black;
     font-family: Arial, sans-serif;
 }
 
@@ -42,7 +42,7 @@ body {
     align-items: center;
     width: 800px;
     padding: 10px;
-    background-color: #fff;
+    background-color: #8BD1CB;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
@@ -50,12 +50,12 @@ body {
 #game-container {
     width: 800px;
     height: 600px;
-    background-color: #e6f7ff;
+    background-color: #221f1f;
     border: 2px solid #333;
     border-radius: 8px;
     position: relative;
     overflow: hidden;
-    margin-bottom: 40px; /* Added space between game container and footer */
+    margin-bottom: 60px; /* Increased space between game container and footer */
 }
 
 #water-can {
@@ -63,7 +63,7 @@ body {
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px;
+    width: 50px;
     height: auto;
     cursor: pointer;
     pointer-events: none; /* Prevent accidental clicks */
@@ -91,11 +91,15 @@ body {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin-left: 10px; /* Add spacing between buttons */
+    margin-left: 5px; /* Add spacing between buttons */
 }
 
 #reset-btn:hover {
     background-color: #d32f2f;
+}
+
+#start-btn, #reset-btn {
+    margin-left: 0px; /* Reduced spacing between buttons */
 }
 
 .score {
@@ -118,12 +122,12 @@ body {
     transform-origin: center;
     cursor: pointer;
     pointer-events: auto;
-    background-color: #0099ff; /* Blue for good drops */
+    background-color: transparent; /* Transparent for emoji-based good drops */
     border-radius: 50%; /* Make it circular */
 }
 
 .bad-drop {
-    background-color: red; /* Red for bad drops */
+    background-color: transparent; /* Transparent for emoji-based bad drops */
 }
 
 .game-title {
@@ -154,8 +158,8 @@ body {
 
 #cw-logo {
     display: block;
-    margin: 20px auto; /* Center the logo and add spacing */
-    width: 150px;      /* Adjust the size of the logo */
+    margin: 30px auto 20px; /* Add spacing above and below the logo */
+    width: 300px;           /* Increase the size of the logo */
     height: auto;
 }
 

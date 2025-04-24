@@ -82,15 +82,25 @@ function resetGame() {
 function createDrop() {
     const drop = document.createElement('div');
     
-    // Randomly determine if this drop is good or bad (20% chance of bad)
-    const isBadDrop = Math.random() < 0.2;
+    // Randomly determine if this drop is good or bad (30% chance of bad)
+    const isBadDrop = Math.random() < 0.3;
     drop.className = isBadDrop ? 'water-drop bad-drop' : 'water-drop';
     
-    // Remove emoji and style as a circle
-    drop.style.backgroundColor = isBadDrop ? 'red' : '#0099ff'; // Red for bad drops, blue for good drops
-    drop.style.borderRadius = '50%'; // Make it circular
-    drop.style.width = '40px'; // Set width
-    drop.style.height = '40px'; // Set height
+    // Style good drops with the 💧 emoji
+    if (!isBadDrop) {
+        drop.textContent = '💧';
+        drop.style.fontSize = '24px'; // Adjust emoji size
+        drop.style.textAlign = 'center';
+        drop.style.lineHeight = '40px'; // Center the emoji vertically
+        drop.style.backgroundColor = 'transparent'; // Remove background for emoji
+    } else {
+        // Style bad drops with the 🩸 emoji
+        drop.textContent = '🩸';
+        drop.style.fontSize = '24px'; // Adjust emoji size
+        drop.style.textAlign = 'center';
+        drop.style.lineHeight = '40px'; // Center the emoji vertically
+        drop.style.backgroundColor = 'transparent'; // Remove background for emoji
+    }
 
     // Create random size variation for visual interest
     const scale = 0.8 + Math.random() * 0.7;  // Results in 80% to 150% of original size
