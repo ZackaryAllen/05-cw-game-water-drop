@@ -27,6 +27,7 @@ body {
     min-height: 100vh;
     background-color: black;
     font-family: Arial, sans-serif;
+    color: #FFC907; /* Set text color to #FFC907 */
 }
 
 .game-wrapper {
@@ -42,7 +43,7 @@ body {
     align-items: center;
     width: 800px;
     padding: 10px;
-    background-color: #8BD1CB;
+    background-color: #2E9DF7;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
@@ -50,12 +51,12 @@ body {
 #game-container {
     width: 800px;
     height: 600px;
-    background-color: #221f1f;
+    background-color: #159A48;
     border: 2px solid #333;
     border-radius: 8px;
     position: relative;
     overflow: hidden;
-    margin-bottom: 60px; /* Increased space between game container and footer */
+    margin-bottom: 50px; /* Increased space between game container and footer */
 }
 
 #water-can {
@@ -106,12 +107,13 @@ body {
     flex: 0 1 auto;  /* Don't grow, can shrink, auto basis */
     font-size: 24px;
     font-weight: bold;
+    color: #FFC907; /* Update score color */
 }
 
 .timer {
     font-size: 24px;
     font-weight: bold;
-    color: #333;
+    color: #FFC907; /* Update timer color */
 }
 
 .water-drop {
@@ -131,7 +133,7 @@ body {
 }
 
 .game-title {
-    color: #131313;
+    color: #FFC907; /* Update title color */
     font-size: 48px;
     margin-top: 0;
     margin-bottom: 5px;  /* reduced from 20px */
@@ -139,26 +141,16 @@ body {
 }
 
 .game-tagline {
-    color: #666;
+    color: #FFC907; /* Update tagline color */
     font-size: 18px;
     margin-bottom: 20px;
     text-align: center;
 }
 
-.footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #2E9DF7; /* Charity Water Blue */
-    color: white;
-    font-size: 14px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
 
 #cw-logo {
     display: block;
-    margin: 30px auto 20px; /* Add spacing above and below the logo */
+    margin: 30px auto 10px; /* Add spacing above and below the logo */
     width: 300px;           /* Increase the size of the logo */
     height: auto;
 }
