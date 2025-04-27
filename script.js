@@ -5,6 +5,7 @@ let score = 0;           // Initialize score
 let timer = 60;          // Initialize timer
 let timerInterval;       // Declare timerInterval globally to manage it in resetGame
 let easyMode = false;    // Tracks if Easy Mode is active
+let gameMode = 'Normal'; // Tracks the current game mode (Normal, Easy, Hard)
 
 // Event listener for the start button
 document.getElementById('start-btn').addEventListener('click', startGame);
@@ -12,10 +13,16 @@ document.getElementById('start-btn').addEventListener('click', startGame);
 // Event listener for the reset button
 document.getElementById('reset-btn').addEventListener('click', resetGame);
 
-// Event listener for Easy Mode toggle
-document.getElementById('easy-mode-btn').addEventListener('click', () => {
-    easyMode = !easyMode;
-    document.getElementById('easy-mode-btn').textContent = easyMode ? 'Easy Mode: ON' : 'Easy Mode: OFF';
+// Event listener for Mode toggle
+document.getElementById('mode-toggle-btn').addEventListener('click', () => {
+    if (gameMode === 'Normal') {
+        gameMode = 'Easy';
+    } else if (gameMode === 'Easy') {
+        gameMode = 'Hard';
+    } else {
+        gameMode = 'Normal';
+    }
+    document.getElementById('mode-toggle-btn').textContent = `Mode: ${gameMode}`; // Update button text to match the selected mode
 });
 
 // Game initialization function
@@ -153,8 +160,12 @@ function createDrop() {
             score -= 5; // Decrease score for bad drop
             console.log('Clicked a bad drop! Score:', score);
         } else {
-            score += 5; // Increase score for good drop
-            console.log('Clicked a good drop! Score:', score);
+            let pointsEarned = 5; // Default points for good drops
+            if (gameMode === 'Hard') {
+                pointsEarned -= 3; // Reduce points by 3 in Hard Mode
+            }
+            score += pointsEarned;
+            console.log(`Clicked a good drop! Score: ${score}`);
         }
         updateScore(); // Update the score display
     });
@@ -162,8 +173,8 @@ function createDrop() {
     // Remove drop if it reaches bottom without being clicked
     drop.addEventListener('animationend', () => {
         drop.remove();
-        if (!drop.classList.contains('bad-drop') && !easyMode) {
-            // Only decrease score if a good drop is missed and Easy Mode is OFF
+        if (!drop.classList.contains('bad-drop') && gameMode !== 'Easy') {
+            // Only decrease score if a good drop is missed and mode is not Easy
             score -= 2;
             console.log('Missed a good drop! Score:', score);
             updateScore(); // Update the score display
