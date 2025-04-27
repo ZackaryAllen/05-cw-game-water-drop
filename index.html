@@ -5,24 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Water Drop Game</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&family=Solway:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     
     <div class="game-wrapper">
       <img id="cw-logo" src="img/cw_horizontal_black.jpg" alt="Charity Water Logo">
         <h1 class="game-title">Water Drop</h1>
-        <p class="game-tagline">Catch the good 💧, avoid the bad 🩸!</p>
+        <p class="game-tagline">Click the good 💧, avoid the bad 🩸!</p>
         <div class="score-panel">
           <div class="score">Score: <span id="score">0</span></div>
           <div class="timer">Time: <span id="timer">60</span>s</div>
           <button id="start-btn">Start Game</button>
           <button id="reset-btn">Reset Game</button>
+          <button id="mode-toggle-btn">Mode: Normal</button>
       </div>
            <div id="game-container">
             <div id="message-display"></div>
             <img id="water-can" src="img/water-can.png" alt="Water Can">
         </div>
     </div>  
+    <footer class="footer">
+        <p>Support clean water initiatives! <a href="https://www.charitywater.org" target="_blank" rel="noopener noreferrer">Make a donation</a>.</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>

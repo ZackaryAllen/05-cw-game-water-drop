@@ -4,12 +4,19 @@ let gameInterval;        // Stores the interval that creates drops
 let score = 0;           // Initialize score
 let timer = 60;          // Initialize timer
 let timerInterval;       // Declare timerInterval globally to manage it in resetGame
+let easyMode = false;    // Tracks if Easy Mode is active
 
 // Event listener for the start button
 document.getElementById('start-btn').addEventListener('click', startGame);
 
 // Event listener for the reset button
 document.getElementById('reset-btn').addEventListener('click', resetGame);
+
+// Event listener for Easy Mode toggle
+document.getElementById('easy-mode-btn').addEventListener('click', () => {
+    easyMode = !easyMode;
+    document.getElementById('easy-mode-btn').textContent = easyMode ? 'Easy Mode: ON' : 'Easy Mode: OFF';
+});
 
 // Game initialization function
 function startGame() {
@@ -53,8 +60,19 @@ function updateTimer() {
 function endGame() {
     gameActive = false;
     clearInterval(gameInterval);
+
+    // Remove all remaining drops from the game container
+    const gameContainer = document.getElementById('game-container');
+    gameContainer.querySelectorAll('.water-drop, .bad-drop').forEach(drop => drop.remove());
+
+    // Check win or lose conditions
+    if (score >= 50) {
+        alert(`Congratulations! You win! Your final score is: ${score}`);
+    } else {
+        alert(`Game Over! You lose. Your final score is: ${score}`);
+    }
+
     document.getElementById('start-btn').disabled = false;
-    alert(`Game Over! Your final score is: ${score}`);
 }
 
 // Function to reset the game
@@ -114,35 +132,38 @@ function createDrop() {
     // Set drop animation speed
     drop.style.animationDuration = '4s';
     
-    // Simple click handler to remove drops
+    // Click handler to remove drops, show water can, and update score
     drop.addEventListener('click', () => {
+        const waterCan = document.getElementById('water-can');
+        
+        // Position the water can at the drop's location
+        const dropRect = drop.getBoundingClientRect();
+        const containerRect = document.getElementById('game-container').getBoundingClientRect();
+        waterCan.style.left = `${dropRect.left - containerRect.left}px`;
+        waterCan.style.top = `${dropRect.top - containerRect.top}px`;
+        waterCan.style.display = 'block'; // Show the water can
+
+        // Hide the water can after a shorter delay
+        setTimeout(() => {
+            waterCan.style.display = 'none';
+        }, 150); // Reduced from 300ms
+
         drop.remove();
-    });
-    
-    // Check for collision with the water can during animation
-    const collisionInterval = setInterval(() => {
-        if (isCollision(drop, waterCan)) {
-            drop.classList.add('caught'); // Mark drop as caught
-            drop.remove();
-            clearInterval(collisionInterval);
-            // Update score or handle bad drop logic
-            if (drop.classList.contains('bad-drop')) {
-                score -= 5; // Decrease score for bad drop
-                console.log('Caught a bad drop! Score:', score);
-            } else {
-                score += 5; // Increase score for good drop
-                console.log('Caught a good drop! Score:', score);
-            }
-            updateScore(); // Update the score display
+        if (drop.classList.contains('bad-drop')) {
+            score -= 5; // Decrease score for bad drop
+            console.log('Clicked a bad drop! Score:', score);
+        } else {
+            score += 5; // Increase score for good drop
+            console.log('Clicked a good drop! Score:', score);
         }
-    }, 50);
+        updateScore(); // Update the score display
+    });
 
     // Remove drop if it reaches bottom without being clicked
     drop.addEventListener('animationend', () => {
         drop.remove();
-        clearInterval(collisionInterval);
-        if (!drop.classList.contains('caught') && !drop.classList.contains('bad-drop')) {
-            // Only decrease score if a good drop is missed
+        if (!drop.classList.contains('bad-drop') && !easyMode) {
+            // Only decrease score if a good drop is missed and Easy Mode is OFF
             score -= 2;
             console.log('Missed a good drop! Score:', score);
             updateScore(); // Update the score display
@@ -151,29 +172,4 @@ function createDrop() {
 
     // Add drop to game container
     document.getElementById('game-container').appendChild(drop);
-}
-
-// Add event listener to move the water can with the mouse
-const waterCan = document.getElementById('water-can');
-document.addEventListener('mousemove', (event) => {
-    const gameContainer = document.getElementById('game-container');
-    const containerRect = gameContainer.getBoundingClientRect();
-    
-    // Restrict movement within the game container
-    let newX = event.clientX - containerRect.left - waterCan.offsetWidth / 2;
-    newX = Math.max(0, Math.min(newX, containerRect.width - waterCan.offsetWidth));
-    waterCan.style.left = `${newX}px`;
-});
-
-// Function to check collision between the water can and a drop
-function isCollision(drop, waterCan) {
-    const dropRect = drop.getBoundingClientRect();
-    const canRect = waterCan.getBoundingClientRect();
-    
-    return !(
-        dropRect.top > canRect.bottom ||
-        dropRect.bottom < canRect.top ||
-        dropRect.left > canRect.right ||
-        dropRect.right < canRect.left
-    );
 }
